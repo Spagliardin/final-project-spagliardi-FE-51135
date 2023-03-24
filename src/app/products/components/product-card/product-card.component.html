@@ -1,0 +1,17 @@
+<div class="card pointer" style="width: 18rem;">
+  <img src="" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.title }}</h5>
+    <p class="card-text">{{ product.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"> {{ product.price | currency }} </li>
+    <li class="list-group-item"> Categoría: {{ product.category }} </li>
+    <li class="list-group-item">Stock: {{ product.stock }}</li>
+  </ul>
+  <div class="card-body">
+    <a [routerLink]="['/product', product.productId]"
+       class="card-link"
+       >Detalle</a>
+  </div>
+</div>
