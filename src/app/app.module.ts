@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { APP_BASE_HREF } from '@angular/common';
 const config: SocketIoConfig = {
   url: environment.wsUrl ,
   options: {
@@ -26,7 +27,6 @@ const config: SocketIoConfig = {
     ProductsModule,
     SocketIoModule.forRoot(config)
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

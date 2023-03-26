@@ -1,3 +1,4 @@
+import { Product } from './../../interfaces/product.interface';
 import { ProductsService } from './../../services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -10,7 +11,7 @@ import Swal from "sweetalert2";
 })
 export class ProductListComponent implements OnInit {
 
-  products$!: Observable<any>;
+  products$!: Observable<Product | any>;
 
   constructor(private productService: ProductsService) { }
 

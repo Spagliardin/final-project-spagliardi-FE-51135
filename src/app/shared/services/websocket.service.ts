@@ -15,12 +15,10 @@ export class WebsocketService {
   checkStatus() {
     
     this.socket.on('connect', () => {
-      console.log('conectado');
       this.socketStatus = true
     })
 
     this.socket.on('disconnect', () => {
-      console.log('Desconectado');
       this.socketStatus = false
     })
 
@@ -28,5 +26,9 @@ export class WebsocketService {
 
   emit( event: string, payload?: any, callback?: Function ) {
     this.socket.emit(event, payload, callback)
+  }
+
+  listen( event: string ){
+    return this.socket.fromEvent( event )
   }
 }
