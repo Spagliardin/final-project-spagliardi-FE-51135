@@ -8,7 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { APP_BASE_HREF } from '@angular/common';
+import { CartModule } from './cart/cart.module';
+
 const config: SocketIoConfig = {
   url: environment.wsUrl ,
   options: {
@@ -25,6 +26,7 @@ const config: SocketIoConfig = {
     AppRoutingModule,
     SharedModule,
     ProductsModule,
+    CartModule,
     SocketIoModule.forRoot(config)
   ],
   bootstrap: [AppComponent]

@@ -2,12 +2,16 @@
 <hr>
 <ul class="list-group">
   <li class="list-group-item pointer"
-      routerLink=""
+      [routerLink]="['/products']"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
-      >Productos</li>
+      ><i class="bi bi-bag me-2"></i>Productos</li>
   <li class="list-group-item pointer"
-      routerLink="socket"
+      [routerLink]="['/products/socket']"
       routerLinkActive="active"
-      >Productos Socket</li>
+      ><i class="bi bi-bag-x me-2"></i>Productos Socket</li>
+  <li class="list-group-item pointer"
+      [routerLink]="['/cart']"
+      routerLinkActive="active"
+      ><i class="bi bi-cart me-2"></i>cart</li>
 </ul>

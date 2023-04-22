@@ -22,7 +22,7 @@ export class ProductsService {
   getProducts(): Observable<Product> {
     return this.http.get<Product>(`${ base_url }/products`)
               .pipe(
-                map((res: any) => res.products),
+                map((res: any) => res.payload),
               )
   }
 
