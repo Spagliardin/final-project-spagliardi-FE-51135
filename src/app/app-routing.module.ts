@@ -6,11 +6,12 @@ const routes: Routes = [
   {
     path: 'products',
     loadChildren: () => import('./products/products-routing.module').then( m => m.ProductsRoutingModule ),
-    // pathMatch: 'full'
+    data: { breadcrumb: 'Products' }
   },
   {
     path: 'cart',
-    loadChildren: () => import('./cart/cart-routing.module').then( m => m.CartRoutingModule )
+    loadChildren: () => import('./cart/cart-routing.module').then( m => m.CartRoutingModule ),
+    data: { breadcrumb: 'Cart' }
   },
   {
     path: '**',

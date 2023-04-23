@@ -1,7 +1,7 @@
-import { Product } from './../../interfaces/product.interface';
+import { Payload, Product } from './../../interfaces/product.interface';
 import { ProductsService } from './../../services/products.service';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import Swal from "sweetalert2";
 
 @Component({
@@ -9,18 +9,27 @@ import Swal from "sweetalert2";
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
 
-  products$!: Observable<Product | any>;
+  public totalPages: number = 0
+  public product: Payload[] = []
+  public page: number = 1
+  private limit: number = 6
+  private productsSubscribe: Subscription = new Subscription()
 
   constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
-    this.products$ = this.getProducts()
+    this.getProducts()
   }
 
-  getProducts(){
-    return this.productService.getProducts()
+  private getProducts(){
+    this.productsSubscribe = this.productService.getProducts(this.limit, this.page).subscribe({
+      next: (res) => {
+        this.product = res.payload
+        this.totalPages = res.totalPages
+      }
+    })
   }
 
   addProduct(e: any){
@@ -41,6 +50,19 @@ export class ProductListComponent implements OnInit {
           })
         }
       })
+  }
+
+  changePage( value: number ){
+    if (this.totalPages >= this.page) this.page += value
+    else this.page -= value
+
+    if (this.page <= 1) this.page = 1 
+    
+    this.getProducts()
+  }
+
+  ngOnDestroy(): void {
+    this.productsSubscribe.unsubscribe()
   }
 
 }

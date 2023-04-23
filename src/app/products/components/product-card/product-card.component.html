@@ -7,7 +7,7 @@
   <div class="card-body bg-light text-center">
     <div class="mb-2">
       <h6>
-        <a [routerLink]="['/product', product.productId]" class="text-default mb-2 pointer">{{ product.title }}</a>
+        <a [routerLink]="['/product', product.pid]" class="text-default mb-2 pointer">{{ product.title }}</a>
       </h6>
       <a class="text-muted"> {{ product.category }} </a>
     </div>
@@ -22,7 +22,7 @@
     </div>
     <div class="text-muted mb-3">34 reviews</div>  
     
-    <button type="button" class="btn bg-cart">
+    <button type="button" class="btn bg-cart" (click)="addToCart( product.pid )">
       <i class="bi bi-cart-plus-fill me-2"></i> Add to cart
     </button>  
   </div>

@@ -8,6 +8,11 @@ export interface Cart {
   cart: CartElement
 }
 
+export interface CartUpdate {
+  ok: Cart['ok']
+  cartUpdateWithoutDelete: Cart['cart']
+}
+
 export interface CartElement {
   products: ProductElement[];
   cid:      string;

@@ -5,7 +5,11 @@
 export const environment = {
   production: false,
   wsUrl: 'http://localhost:8080',
-  base_url: 'http://localhost:8080/api'
+  base_url: 'http://localhost:8080/api',
+  apis: {
+    products: `products`,
+    carts: `carts/#cartId#/product/#productId#`
+  }
 };
 
 /*

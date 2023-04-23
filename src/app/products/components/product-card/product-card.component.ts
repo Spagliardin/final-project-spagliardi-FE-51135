@@ -1,17 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ProductsService } from '../../services/products.service';
+import { Payload } from './../../interfaces/product.interface';
+import { Component, Input, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent implements OnDestroy {
 
-  @Input() product: any
+  @Input() product!: Payload
+  private addtoCartSubscription: Subscription = new Subscription
 
-  constructor() { }
+  constructor(private productsService: ProductsService) { }
 
-  ngOnInit(): void {
+  
+  addToCart( id: string ){
+    this.productsService.addToCart(id).subscribe({
+      next(){}
+    })
   }
-
+  
+  ngOnDestroy(): void {
+    this.addtoCartSubscription.unsubscribe()
+  }
 }

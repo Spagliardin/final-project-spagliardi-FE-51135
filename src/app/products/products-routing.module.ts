@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { ProductListSocketComponent } from './pages/product-list-socket/product-list-socket.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { ProductsService } from './services/products.service';
 
 const routes: Routes = [
   {
@@ -15,11 +16,16 @@ const routes: Routes = [
       },
       {
         path: 'socket',
-        component: ProductListSocketComponent
+        component: ProductListSocketComponent,
+        data: { breadcrumb: 'Socket' }
       },
       {
         path: 'product/:id',
-        component: ProductDetailComponent
+        component: ProductDetailComponent,
+        data: { 
+          breadcrumb: (data: any) => `${data.product.name}`
+         },
+         resolve: { product: ProductsService }
       },
     ]
   }
