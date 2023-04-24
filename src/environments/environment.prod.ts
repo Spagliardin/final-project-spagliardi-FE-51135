@@ -3,6 +3,7 @@ export const environment = {
   wsUrl: 'http://localhost:8080',
   base_url: 'http://localhost:8080/api',
   apis: {
-    products: `/products?limit=#limit#&page=#page#&sort=#sort#&query=#query#`
+    products: `products`,
+    carts: `carts/#cartId#/product/#productId#`
   }
 };
