@@ -1,7 +1,7 @@
 import { Payload, Product } from './../../interfaces/product.interface';
 import { ProductsService } from './../../services/products.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import Swal from "sweetalert2";
 
 @Component({

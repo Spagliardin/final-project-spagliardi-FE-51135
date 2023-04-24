@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -11,7 +12,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
   declarations: [
     SidebarComponent,
     FooterComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
   ],
   exports: [
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule { }

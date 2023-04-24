@@ -13,6 +13,11 @@ export interface CartUpdate {
   cartUpdateWithoutDelete: Cart['cart']
 }
 
+export interface UpdateQuantity {
+  ok: Cart['ok'],
+  cartUpdated: Cart['cart']
+}
+
 export interface CartElement {
   products: ProductElement[];
   cid:      string;

@@ -4,6 +4,8 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CartListComponent } from './components/cart-list/cart-list.component';
 import { CartProductComponent } from './components/cart-product/cart-product.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,7 +17,9 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
+    RouterModule
   ],
   exports: [
     CartComponent,
