@@ -9,16 +9,8 @@ import { ProductsService } from './services/products.service';
 const routes: Routes = [
   {
     path: '',
+    component: ProductListComponent,
     children: [
-      {
-        path: '',
-        component: ProductListComponent
-      },
-      {
-        path: 'socket',
-        component: ProductListSocketComponent,
-        data: { breadcrumb: 'Socket' }
-      },
       {
         path: 'product/:id',
         component: ProductDetailComponent,
@@ -28,6 +20,11 @@ const routes: Routes = [
          resolve: { product: ProductsService }
       },
     ]
+  },
+  {
+    path: 'socket',
+    component: ProductListSocketComponent,
+    data: { breadcrumb: 'Socket' } 
   }
 ]
 

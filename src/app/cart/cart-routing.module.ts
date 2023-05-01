@@ -6,12 +6,7 @@ import { CartComponent } from './pages/cart/cart.component';
 const routes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: '',
-        component: CartComponent
-      },
-    ]
+    component: CartComponent
   }
 ]
 

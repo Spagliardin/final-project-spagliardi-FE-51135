@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/auth/services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  public hasToken: boolean = false
+
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
+    !!this.userService.token ? this.hasToken = true : this.hasToken = false
+  }
+
+  logout(){
+    this.userService.logout()
   }
 
 }

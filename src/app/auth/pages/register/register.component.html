@@ -5,7 +5,7 @@
         <div class="row no-gutters align-items-center">
           <div class="form-wrap bg-white">
             <h4 class="btm-sep pb-3 mb-5">Register</h4>
-            <form class="form" autocomplete="off" [formGroup]="registerForm" (ngSubmit)="createUser()">
+            <form class="form" [formGroup]="registerForm" (ngSubmit)="createUser()">
               <div class="row">
                 <div class="col-12">
                   <div class="form-group position-relative">
@@ -28,7 +28,7 @@
                     <span class="zmdi zmdi-email">
                       <i class="bi bi-asterisk fs-6"></i>
                     </span>
-                    <input type="password" id="password" class="form-control" placeholder="Password" formControlName="password">
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password">
                   </div>
                 </div>
                 <div class="col-12 mt-2">
@@ -36,7 +36,7 @@
                     <span class="zmdi zmdi-email">
                       <i class="bi bi-braces-asterisk"></i>
                     </span>
-                    <input type="password" id="password" class="form-control" placeholder="Confirm password" formControlName="password2">
+                    <input type="password" class="form-control" placeholder="Confirm password" formControlName="password2">
                   </div>
                 </div>
                 <div class="col-12 mt-4">

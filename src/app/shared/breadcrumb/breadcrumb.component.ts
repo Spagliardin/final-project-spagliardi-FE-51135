@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Breadcrumb } from '../interfaces/breadcrumb.interface';
-import { Observable, map, skip } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { BreadcrumbService } from '../services/breadcrumb.service';
 
 @Component({

@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { LoadingComponent } from './loading/loading.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -13,7 +14,8 @@ import { LoadingComponent } from './loading/loading.component';
     SidebarComponent,
     FooterComponent,
     BreadcrumbComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { LoadingComponent } from './loading/loading.component';
   exports: [
     SidebarComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeaderComponent
   ]
 })
 export class SharedModule { }
