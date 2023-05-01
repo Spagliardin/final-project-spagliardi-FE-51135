@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-11 mt-60 mx-md-auto">
+          <div class="login-box bg-white pl-lg-5 pl-0">
+              <div class="row no-gutters align-items-center">
+                  <div class="col-md-6">
+                      <div class="form-wrap bg-white">
+                          <h4 class="btm-sep pb-3 mb-5">Login</h4>
+                          <form class="form" autocomplete="off" [formGroup]="loginForm" (ngSubmit)="login()">
+                              <div class="row">
+                                  <div class="col-12">
+                                      <div class="form-group position-relative">
+                                          <span class="zmdi zmdi-account">
+                                            <i class="bi bi-person-circle"></i>
+                                          </span>
+                                          <input type="email" id="email" class="form-control" placeholder="Email Address" formControlName="email">
+                                      </div>
+                                  </div>
+                                  <div class="col-12 mt-2">
+                                      <div class="form-group position-relative">
+                                          <span class="zmdi zmdi-email">
+                                            <i class="bi bi-eye"></i>
+                                          </span>
+                                          <input type="password" id="password" class="form-control" placeholder="Password" formControlName="password">
+                                      </div>
+                                  </div>
+                                  <div class="col-12 mt-3 text-end">
+                                      <a href="#" class="c-black text-decoration-none">Forgot password ?</a>
+                                  </div>
+                                  <div class="col-12 mt-1">
+                                      <button type="submit" class="btn btn-dark btn-lg w-100">Sign In
+                                      </button>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="content text-center">
+                          <div class="border-bottom pb-2 mb-5">
+                              <h3 class="c-black">First time here?</h3>
+                              <a [routerLink]="['./register']" class="btn btn-custom">Sign up</a>
+                          </div>
+                          <h5 class="c-black mb-3">Or Sign In With</h5>
+                          <div class="socials">
+                            <i class="bi bi-facebook"></i>
+                            <i class="bi bi-twitter"></i>
+                            <i class="bi bi-google"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

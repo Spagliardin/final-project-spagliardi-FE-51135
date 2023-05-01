@@ -9,6 +9,7 @@ import { CartService } from '../../services/cart.service';
 export class CartComponent {
 
   public totalPrice$ = this.cartService.totalPrice$
+  public cartLength$ = this.cartService.cartLength$
 
   constructor(private cartService: CartService) { }
 

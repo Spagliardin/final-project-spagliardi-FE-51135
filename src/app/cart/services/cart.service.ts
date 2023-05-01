@@ -14,6 +14,8 @@ export class CartService {
 
   private _totalPrice = new BehaviorSubject<number>(0);
   public readonly totalPrice$ = this._totalPrice.asObservable();
+  private _cartLength = new BehaviorSubject<number>(0);
+  public readonly cartLength$ = this._cartLength.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +24,7 @@ export class CartService {
       
       const totalPrice = this.getTotalPrice(cart.products)
       this._totalPrice.next(totalPrice)
+      this._cartLength.next(cart.products.length)
 
       return cart.products
     }));
@@ -35,6 +38,8 @@ export class CartService {
 
           const totalPrice = this.getTotalPrice(cartUpdateWithoutDelete.products)
           this._totalPrice.next(totalPrice)
+          this._cartLength.next(cartUpdateWithoutDelete.products.length)
+          
 
           return cartUpdateWithoutDelete.products
         }))

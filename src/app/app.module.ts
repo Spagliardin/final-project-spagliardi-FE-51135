@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { CartModule } from './cart/cart.module';
+import { AuthModule } from './auth/auth.module';
 
 const config: SocketIoConfig = {
   url: environment.wsUrl ,
@@ -27,6 +28,7 @@ const config: SocketIoConfig = {
     SharedModule,
     ProductsModule,
     CartModule,
+    AuthModule,
     SocketIoModule.forRoot(config)
   ],
   bootstrap: [AppComponent]
