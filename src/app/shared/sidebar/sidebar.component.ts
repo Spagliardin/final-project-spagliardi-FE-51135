@@ -1,5 +1,6 @@
 import { UserService } from 'src/app/auth/services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,12 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  public hasToken: boolean = false
+  public hasToken$?: Observable<boolean>
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    !!this.userService.token ? this.hasToken = true : this.hasToken = false
+    this.hasToken$ = this.userService.isToken$
   }
 
   logout(){

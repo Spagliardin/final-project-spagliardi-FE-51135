@@ -22,8 +22,8 @@ export class LoginComponent {
 
   login(){
     this.userService.login(this.loginForm.value).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/');
+      next: (ok) => {
+        if(ok) this.router.navigate(['/']).then(() => window.location.reload());
       },
       error: (err) => {
         Swal.fire('Error', err.error.msg, 'error');

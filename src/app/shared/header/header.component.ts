@@ -1,6 +1,4 @@
-import { User } from './../../auth/models/user.model';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UserService } from 'src/app/auth/services/user.service';
 
 @Component({
@@ -12,12 +10,18 @@ export class HeaderComponent implements OnInit {
 
   public userName: string = ''
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.user?.subscribe({
-      next: (res) => {
-        this.userName = res.name 
+    this.getUser()
+  }
+
+  getUser(){
+    this.userService.validateToken().subscribe({
+      next: (ok) => {
+        if (ok) {
+          this.userName = this.userService.user?.name!
+        }
       }
     })
   }

@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { LoginForm } from '../interfaces/login-form.interface';
+import { LoginForm, RestLogin } from '../interfaces/login-form.interface';
 import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 import { User } from '../models/user.model';
+import { TokenStorageService } from './token-storage.service';
 
 const BASE_URL = environment.base_url;
 const API_USERS = environment.apis.user
@@ -14,72 +15,56 @@ const API_USERS = environment.apis.user
 })
 export class UserService {
 
-  public user?: BehaviorSubject<User> = new BehaviorSubject(Object());
+  public user?: User
+  private readonly _isToken$?: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(!!localStorage.getItem('token') || false)
+  public readonly isToken$ = this._isToken$?.asObservable()
 
-  get token() :string{
-    return localStorage.getItem('token') || '';
-  }
-
-  get headers(){
-    return {
-      headers: {
-        'x-token': this.token,
-      }
-    }
-  }
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) { }
 
   createUser(formData: RegisterForm) {
-    return this.http.post(`${BASE_URL}/${API_USERS}`, formData)
-    .pipe(
-      tap((res: any) => {
-        localStorage.setItem('token', res.token);
-      })
-    )
+    return this.http.post<RestLogin>(`${BASE_URL}/${API_USERS}`, formData)
   }
 
-  login(formData: LoginForm | any) {
-    return this.http.post(`${BASE_URL}/login`, formData)
+  login(formData: LoginForm | any) : Observable<boolean> {
+    return this.http.post<RestLogin>(`${BASE_URL}/login`, formData)
     .pipe(
-      tap((res: any) => {
-        localStorage.setItem('token', res.token);
+      tap((res) => {
+        if (res.ok) {
+          this._isToken$?.next(true)
+          this.tokenStorageService.setToken(res.token)
+          const { email, google, name, role, img = '', uid } = res.user
+          this.user = new User(
+            name, email, '', img, google, role, uid
+          )
+        }
       }),
-      map((res: any) => {
-
-        const { email, google, name, role, img = '', uid }= res.userDB
-
-        this.user?.next(new User(
-          name, email, '', img, google, role, uid
-        ))
-
-        localStorage.setItem('token', res.token);
-        return res.userDB
-      }),
+      map((res) => !!res.user),
+      catchError((err) => of(false))
     );
   }
 
-  vaidateToken(): Observable<boolean> | any {
-
+  validateToken(): Observable<boolean> {
     return this.http
-      .get(`${BASE_URL}/login/renew`, this.headers)
+      .get<RestLogin>(`${BASE_URL}/login/renew`)
       .pipe(
-        map((res: any) => {
-
-          const { email, google, name, role, img = '', uid }= res.user
-
-          this.user?.next(new User(
-            name, email, '', img, google, role, uid
-          ))
-
-          localStorage.setItem('token', res.token);
-          return true
+        tap((res) => {
+          if (res.ok) {
+            this._isToken$?.next(true)
+            const { email, google, name, role, img = '', uid } = res.user
+            this.user = new User(
+              name, email, '', img, google, role, uid
+            )
+          }
         }),
+        map((res: any) => !!res.user),
         catchError((err) => of(false))
       );
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.tokenStorageService.removeToken()
+    this._isToken$?.next(false)
+    this.user = undefined
+    window.location.reload()
   }
 }

@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'final-project-spagliardi-FE-51135';
+
+  constructor() {}
 }

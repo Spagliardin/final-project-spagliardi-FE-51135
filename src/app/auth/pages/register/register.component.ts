@@ -40,7 +40,13 @@ export class RegisterComponent implements OnDestroy {
 
    this.createUserSubscription = this.userService.createUser(this.registerForm.value).subscribe({
       next: () => {
-        this.router.navigateByUrl('/');
+        setTimeout(() => {
+          Swal.fire(
+            'Good job!',
+            'Registered user',
+            'success')
+        }, 1000);
+        this.router.navigateByUrl('/login');
       },
       error: (err) => {
         Swal.fire('Error', err.error.msg, 'error');

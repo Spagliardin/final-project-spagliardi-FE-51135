@@ -16,13 +16,13 @@
       [routerLink]="['/cart']"
       routerLinkActive="active"
     ><i class="bi bi-cart me-2"></i>cart</li>
-  <ng-container *ngIf="!hasToken">
+  <ng-container *ngIf="!(hasToken$ | async)">
     <li class="list-group-item pointer"
       [routerLink]="['/login']"
       routerLinkActive="active"
     ><i class="bi bi-door-open me-2"></i>Login</li>
   </ng-container>
-  <ng-container *ngIf="hasToken">
+  <ng-container *ngIf="hasToken$ | async">
      <li class="list-group-item pointer"
        (click)="logout()"
     ><i class="bi bi-door-closed-fill me-2"></i>Logout</li>

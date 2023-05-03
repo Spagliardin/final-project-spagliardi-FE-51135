@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './shared/interceptors/token-interceptor.service';
 
 const config: SocketIoConfig = {
   url: environment.wsUrl ,
@@ -30,6 +32,9 @@ const config: SocketIoConfig = {
     CartModule,
     AuthModule,
     SocketIoModule.forRoot(config)
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })
