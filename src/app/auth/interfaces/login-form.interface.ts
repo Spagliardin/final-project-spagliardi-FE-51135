@@ -5,6 +5,18 @@ export interface RestLogin {
   user: User
 }
 
+export interface RestGoogleLogin {
+  ok: boolean,
+  payload : payloadTokenGoogle
+}
+
+interface payloadTokenGoogle {
+  email: string,
+  name: string,
+  img: string,
+  token: string
+}
+
 export interface LoginForm {
   email: string;
   password: string;

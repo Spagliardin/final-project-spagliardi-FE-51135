@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { LoginForm, RestLogin } from '../interfaces/login-form.interface';
+import { LoginForm, RestGoogleLogin, RestLogin } from '../interfaces/login-form.interface';
 import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 import { User } from '../models/user.model';
 import { TokenStorageService } from './token-storage.service';
@@ -10,6 +10,7 @@ import { TokenStorageService } from './token-storage.service';
 const BASE_URL = environment.base_url;
 const API_USERS = environment.apis.user
 
+declare const google: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +20,9 @@ export class UserService {
   private readonly _isToken$?: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(!!localStorage.getItem('token') || false)
   public readonly isToken$ = this._isToken$?.asObservable()
 
-  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) { }
+  constructor(private http: HttpClient,
+              private tokenStorageService: TokenStorageService,
+              private ngZone: NgZone) { }
 
   createUser(formData: RegisterForm) {
     return this.http.post<RestLogin>(`${BASE_URL}/${API_USERS}`, formData)
@@ -34,7 +37,7 @@ export class UserService {
           this.tokenStorageService.setToken(res.token)
           const { email, google, name, role, img = '', uid } = res.user
           this.user = new User(
-            name, email, '', img, google, role, uid
+            name, email, google, img, role, uid
           )
         }
       }),
@@ -52,13 +55,26 @@ export class UserService {
             this._isToken$?.next(true)
             const { email, google, name, role, img = '', uid } = res.user
             this.user = new User(
-              name, email, '', img, google, role, uid
+              name, email, google, img, role, uid
             )
           }
         }),
         map((res: any) => !!res.user),
         catchError((err) => of(false))
       );
+  }
+
+  loginGoogle(token: string): Observable<RestGoogleLogin>{
+    return this.http
+      .post<RestGoogleLogin>(`${BASE_URL}/login/google`, {token})
+      .pipe(
+        tap((res) => {
+          if (res.ok) {
+            this._isToken$?.next(true)
+            this.tokenStorageService.setToken(res.payload.token)
+          }
+        })
+      )
   }
 
   logout() {

@@ -6,6 +6,9 @@ export const environment = {
   production: false,
   wsUrl: 'http://localhost:8080',
   base_url: 'http://localhost:8080/api',
+  google: {
+    CLIENT_ID: '527489453555-q5i09itmigfqctqnaaqpvub2ktgcu70g.apps.googleusercontent.com'
+  },
   apis: {
     products: `products`,
     carts: `carts/#cartId#/product/#productId#`,
